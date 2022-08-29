@@ -34,7 +34,6 @@ size_t Fazan::getNoWords(){
 
 std::pair<std::string, size_t> Fazan::suggestWord(const std::string& givenWord){
 	size_t pfxId = MorphoAnalyzer::sufixId(givenWord);
-	
 	size_t minVarId = 99999;
 	for (size_t col = 0; col < 961; col++) {
 		if (mat[pfxId][col].size()) {
@@ -45,6 +44,25 @@ std::pair<std::string, size_t> Fazan::suggestWord(const std::string& givenWord){
 
 	if (minVarId == 99999) return { "", 99999 };
 	return { mat[pfxId][minVarId][0], possVector[minVarId] };
+}
+
+bool Fazan::deleteWord(const std::string& wordToDelete){
+	size_t prefix, sufix;
+	prefix = MorphoAnalyzer::prefixId(wordToDelete);
+	sufix = MorphoAnalyzer::sufixId(wordToDelete);
+
+	try {
+		auto foundAt = std::find(mat[prefix][sufix].begin(), mat[prefix][sufix].end(), wordToDelete);
+		if (foundAt == mat[prefix][sufix].end()) return false;
+		
+		mat[prefix][sufix].erase(foundAt);
+	}
+	catch (...) {
+		return false;
+	}
+
+	generatePossibilityVector();
+	return true;
 }
 
 size_t Fazan::MorphoAnalyzer::charToNumMapper(char x){

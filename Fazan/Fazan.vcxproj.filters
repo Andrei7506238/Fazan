@@ -28,7 +28,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data.txt">
+    <Text Include="flex.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

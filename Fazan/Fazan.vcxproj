@@ -146,7 +146,7 @@
     <ClInclude Include="Fazan.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data.txt" />
+    <Text Include="flex.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

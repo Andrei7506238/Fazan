@@ -28,6 +28,7 @@ class Fazan{
 public:
 	Fazan(std::istream& inp);
 	std::pair<std::string, size_t> suggestWord(const std::string& givenWord);
+	bool deleteWord(const std::string& wordToDelete);
 
 	size_t getNoWords();
 };
