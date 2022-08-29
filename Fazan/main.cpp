@@ -8,7 +8,7 @@ std::ifstream* loadWords(size_t listArg) {
 	if (listArg == 0) {
 		std::cout << "Lista cuvinte [ 1 - flex | 2 - redus | 3 - custom ] : ";
 		std::cin >> listArg;
-	}
+	} 
 
 	char fileName[10] = "";
 
