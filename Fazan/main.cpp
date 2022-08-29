@@ -56,7 +56,7 @@ size_t printMenu() {
 }
 
 void fazanCheat(Fazan* x, size_t rules) {
-	//Get rules for word duplication
+	//Get rules for word duplication 
 	bool allowDuplicated = 0;
 	if (!rules) {
 		std::cout << "\nRegulament : Se accepta cuvinte duplicate ?";
