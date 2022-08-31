@@ -28,7 +28,9 @@ class Fazan{
 public:
 	Fazan(std::istream& inp);
 	std::pair<std::string, size_t> suggestWord(const std::string& givenWord);
-	bool deleteWord(const std::string& wordToDelete);
+	std::vector<std::string>::iterator find_word(const std::string& wordToFind);
+	bool checkWordExists(const std::string& wordToCheck);
+	void deleteWord(const std::string& wordToDelete);
 
 	size_t getNoWords();
 };
