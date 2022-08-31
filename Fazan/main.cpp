@@ -1,8 +1,6 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <utility>
-#include "Fazan.h"
+#include "FazanDS.h"
+#include "FazanCheatGame.h"
+#include "Extra.h"
 
 std::ifstream* loadWords() {
 	size_t listArg;
@@ -28,7 +26,7 @@ std::ifstream* loadWords() {
 
 	std::ifstream* inp = new std::ifstream(fileName);
 	if (!inp->good()) {
-		std::cerr << "[-] EROARE : Fisierul nu a putut fi deschis";
+		std::cerr << "[-] EROARE : Fisierul " << fileName <<" nu a putut fi deschis";
 		exit(1);
 	}
 
@@ -40,98 +38,22 @@ size_t printMenu() {
 	std::cout << "\n====== | FAZAN CHEAT | ====== ";
 	std::cout << "\n1. Modul Fazan Cheat (fara duplicate)";
 	std::cout << "\n2. Modul Fazan Cheat (cu duplicate)";
-	std::cout << "\n3. Modul Extra ";
+	std::cout << "\n3. Modul Extra : genereaza fisier cuvinte folosite pentru blocare";
+	std::cout << "\n3. Modul Extra : genereaza cel mai lung sir fazan";
 	std::cout << "\n=============================";
 
 	std::cout << "\n\tIntroduceti alegerea : ";
 	std::cin >> option;
 
-	if (option <= 0 || option >= 3) {
+	if (option <= 0 || option >= 4) {
 		std::cerr << "[-] Optiune invalida";
 		exit(1);
 	}
 
+	std::cout << std::endl;
 	return option;
 }
 
-void fazanCheatNoDuplicated(Fazan* x) {
-	std::cout << "\n\nA fost activat modul FazanCheat (fara duplicate).";
-	std::cout << "\nIntrodu toate cuvintele adversarilor (si cuvantul tau din prima etapa a jocului) cu caracterul '-' in fata pentru a sterge cuvantul din lista de cuvinte acceptate.";
-	std::cout << "\nIntrodu cuvantul adversarului aflat inaintea ta fara '-' pentru a sugera un cuvant cu numar cat mai mic de posibilitati de continuare. Cuvantul adversarului si cuvantul sugerat de program sunt sterse automat. ";
-	std::cout << "\nIntrodu '0' pentru a opri jocul.\n";
-
-	std::string nw;
-	while (true) {
-		//Get word input
-		std::cout << "\nIntroduceti cuvant : ";
-		std::cin >> nw;
-
-		//Check if game is over
-		if (nw == "0") break;
-
-		//Check if word marked for deletion, get word without '-'
-		bool onlyDelete = (nw[0] == '-');
-		if (onlyDelete)	nw = nw.substr(1);
-
-		//Check if word is valid
-		if (!x->checkWordExists(nw)) {
-			std::cout << "\tCuvant invalid sau deja folosit";
-			continue;
-		}
-
-		//Delete adversary word
-		x->deleteWord(nw);
-
-		//If not marked only for deletion get suggestion
-		if (!onlyDelete) {
-			auto res = x->suggestWord(nw);
-
-			//If words are avaliable
-			if (res.first.length()) {
-				std::cout << "\t" << res.first << " [ posibilitati adversar : " << res.second << ((res.second == 0) ? " - FAZAN" : "") << " ]" << std::endl;
-				x->deleteWord(res.first);
-			}
-			//Otherwise round over for advantage player
-			else {
-				std::cout << "\tFAZAN - nu exista cuvinte disponibile";
-			}
-		}
-	}
-}
-
-void fazanCheatDuplicated(Fazan* x) {
-	std::cout << "\n\nA fost activat modul FazanCheat (cu duplicate).";
-	std::cout << "\nIntrodu cuvantul adversarului aflat inaintea ta pentru a sugera un cuvant cu numar cat mai mic de posibilitati de continuare. Cuvantul adversarului si cuvantul sugerat de program sunt sterse automat. ";
-	std::cout << "\nIntrodu '0' pentru a opri jocul.\n";
-
-	std::string nw;
-	while (true) {
-		//Get word input
-		std::cout << "\nIntroduceti cuvant : ";
-		std::cin >> nw;
-
-		//Check if game is over
-		if (nw == "0") break;
-
-		//Check if word is valid
-		if (!x->checkWordExists(nw)) {
-			std::cout << "\tCuvant invalid sau deja folosit";
-			continue;
-		}
-
-		//Get suggestion
-		auto res = x->suggestWord(nw);
-
-		//If words are avaliable
-		if (res.first.length()) {
-			std::cout << "\t" << res.first << " [ posibilitati adversar : " << res.second << ((res.second == 0) ? " - FAZAN" : "") << " ]" << std::endl;
-		}
-		//Otherwise round over for advantage player
-		else {
-			std::cout << "\tFAZAN - nu exista cuvinte disponibile";
-		}
-	}
-}
 
 int main() {
 	//Get input stream
@@ -139,7 +61,7 @@ int main() {
 
 	//Create Fazan Game object and load words
 	std::clog << "[+] Incarcare cuvinte ...";
-	Fazan* x = new Fazan(*inp);
+	FazanDataStructure* x = new FazanDataStructure(*inp);
 	std::clog << "\n[+] Au fost incarcate " << x->getNoWords() << " cuvinte.\n";
 	inp->close();
 	delete inp;
@@ -150,17 +72,18 @@ int main() {
 	//Menu
 	switch (option) {
 	case 1:
-		fazanCheatNoDuplicated(x);
+		FazanCheatGame::fazanCheatNoDuplicated(x);
 		break;
 	case 2:
-		fazanCheatDuplicated(x);
+		FazanCheatGame::fazanCheatDuplicated(x);
 		break;
 	case 3:
-		std::cout << "Optiune in lucru...";
+		Extra::generateBlockingWords(x);
 		break;
 	default:
 		std::cout << "Alegere incorecta";
 	}
 
+	delete x;
 }
 
