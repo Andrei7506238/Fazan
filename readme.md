@@ -25,7 +25,7 @@ Cuvintele adversarilor (exceptand cel al adversarului precedent) trebuie introdu
 Programul nu va va ajuta in prima runda (in care inchiderile sunt interzise). Introduceti TOATE cuvintele din prima runda a jocului pentru a fi sterse din lista.
 
 ## Informatii privind lista de cuvinte:
-Listele actuale sunt versiuni modificate ale Listei Oficială de Cuvinte admise la Scrabble (LOC) disponibila pe [dexonline](https://dexonline.ro/scrabble) :
+Listele actuale sunt versiuni modificate ale Listei Oficială de Cuvinte admise la Scrabble (LOC) disponibila pe [dexonline](https://dexonline.ro/scrabble):
 - Diacriticile romanesti din lista flexionara sunt inlocuite in felul urmator : ("ă" - "~") ("î" - "^") ("â" - "#") ("ș" - ".") ("ț" - ",")
 - Orice alte diacritice provenite din alte limbi trebuie inlocuite cu forma corespunzatoare din alfabetul englez (cuvinte precum Führer) - lista flexionara
 - Pentru a folosi o lista custom de cuvinte creati fisierul custom.txt in dosarul cu fisierul executabil; Un singur cuvant pe rand; Regulile privind diacriticele sunt cele de mai sus.
