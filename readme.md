@@ -9,7 +9,7 @@ Programul va juca agresiv, greedy, incercand sa minimizeze numarul minim de cuvi
 
 
 ## Extra:
-- [] Care este durata maxima a unui joc de fazan in care niciun jucator nu este inchis ? (nu sunt acceptate cuvinte duplicate) - NEIMPLEMENTAT INCA
+- [ ] Care este durata maxima a unui joc de fazan in care niciun jucator nu este inchis ? (nu sunt acceptate cuvinte duplicate) - NEIMPLEMENTAT INCA
 - [x] Lista de cuvinte care poate fi folosita pentru inchideri, sortata dupa prefix [Forma Baza](rezultatCercetare/ListaCuvinteFolositeLaBlocareBaza.md) [Forma Flexionara](rezultatCercetare/ListaCuvinteFolositeLaBlocareFlex.md)
 
 ## Instructiuni meniu:
