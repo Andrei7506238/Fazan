@@ -2,6 +2,9 @@
 Implementarea unui cheat pentru jocul [FAZAN](https://ro.wikipedia.org/wiki/Fazan_(joc)).
 Programul va juca agresiv, greedy, incercand sa minimizeze numarul minim de cuvinte pe care urmatorul adversar le poate propune.
 
+![VsDebugConsole_DmISA22HDT](https://user-images.githubusercontent.com/52383534/193421758-022272d5-c19e-49d2-a0c8-9dcb7350e1d0.gif)
+
+
 ## Obiective:
 - [x] Posibilitatea de a incarca lista de cuvinte in functie de regulile alese pentru joc (forma de baza (fara diacritice) / forma flexionara (cu diacritice)) precum si posibilitatea de a incarca o lista custom de cuvinte (nume fisier : custom.txt)
 - [x] Posibilitatea de a seta regulile jocului dupa preferinte (se accepta / nu se accepta acelasi cuvant de mai multe ori - caz in care va fi posibila memorarea cuvintelor spuse de ceilalti jucatori, precum si cuvantului propriu din prima runda).
