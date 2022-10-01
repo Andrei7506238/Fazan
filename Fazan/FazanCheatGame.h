@@ -8,5 +8,6 @@ class FazanCheatGame
 {
 public:
 	static void fazanCheatNoDuplicated(FazanDataStructure* x);
+	
 	static void fazanCheatDuplicated(FazanDataStructure* x);
 };

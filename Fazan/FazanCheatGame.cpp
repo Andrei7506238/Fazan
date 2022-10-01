@@ -2,10 +2,7 @@
 
 void FazanCheatGame::fazanCheatNoDuplicated(FazanDataStructure* x) {
 	std::cout << "\n\nA fost activat modul FazanCheat (fara duplicate).";
-	std::cout << "\nIntrodu toate cuvintele adversarilor (si cuvantul tau din prima etapa a jocului) cu caracterul '-' in fata pentru a sterge cuvantul din lista de cuvinte acceptate.";
-	std::cout << "\nIntrodu cuvantul adversarului aflat inaintea ta fara '-' pentru a sugera un cuvant cu numar cat mai mic de posibilitati de continuare.";
-	std::cout << "\nCuvantul adversarului si cuvantul sugerat de program sunt sterse automat. Pentru a sari peste verificarea cuvantului adversarului adauga * la finalul cuvantului";
-	std::cout << "\nIntrodu '0' pentru a opri jocul.\n";
+	std::cout << "\nInstructiuni mod de joc: https://github.com/Andrei7506238/Fazan/wiki/Modul-FazanCheat#fazan-cheat-fara-duplicate\n\n";
 
 	std::string nw;
 	while (true) {
@@ -59,9 +56,7 @@ void FazanCheatGame::fazanCheatNoDuplicated(FazanDataStructure* x) {
 
 void FazanCheatGame::fazanCheatDuplicated(FazanDataStructure* x) {
 	std::cout << "\n\nA fost activat modul FazanCheat (cu duplicate).";
-	std::cout << "\nIntrodu cuvantul adversarului aflat inaintea ta pentru a sugera un cuvant cu numar cat mai mic de posibilitati de continuare. Cuvantul adversarului si cuvantul sugerat de program sunt sterse automat. ";
-	std::cout << "\nIn mod implicit se va verifica daca cuvantul adversarului exista. Pentru a anula acest lucru adauga * dupa cuvant.";
-	std::cout << "\nIntrodu '0' pentru a opri jocul.\n";
+	std::cout << "\nIntructiuni mod de joc: https://github.com/Andrei7506238/Fazan/wiki/Modul-FazanCheat#fazan-cheat-se-accepta-duplicate\n\n";
 
 	std::string nw;
 	while (true) {
@@ -78,7 +73,7 @@ void FazanCheatGame::fazanCheatDuplicated(FazanDataStructure* x) {
 
 		//If process anyway check if word is valid
 		if (!processAnyway && !x->checkWordExists(nw)) {
-			std::cout << "\tCuvant invalid sau deja folosit";
+			std::cout << "\tCuvant invalid";
 			continue;
 		}
 

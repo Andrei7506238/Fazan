@@ -1,6 +1,8 @@
 #include "FazanDS.h"
 #include "FazanCheatGame.h"
 #include "Extra.h"
+#include <thread>
+#include <future>
 
 std::ifstream* loadWords() {
 	size_t listArg;
@@ -39,13 +41,13 @@ size_t printMenu() {
 	std::cout << "\n1. Modul Fazan Cheat (fara duplicate)";
 	std::cout << "\n2. Modul Fazan Cheat (cu duplicate)";
 	std::cout << "\n3. Modul Extra : genereaza fisier cuvinte folosite pentru blocare";
-	std::cout << "\n3. Modul Extra : genereaza cel mai lung sir fazan";
+	std::cout << "\n4. Modul Extra : genereaza cel mai lung sir fazan";
 	std::cout << "\n=============================";
 
 	std::cout << "\n\tIntroduceti alegerea : ";
 	std::cin >> option;
 
-	if (option <= 0 || option >= 4) {
+	if (option <= 0 || option > 4) {
 		std::cerr << "[-] Optiune invalida";
 		exit(1);
 	}
@@ -59,15 +61,16 @@ int main() {
 	//Get input stream
 	std::ifstream* inp = loadWords();
 
+	//Print main menu in separate thread
+	std::future<size_t> opt_rez = std::async(&printMenu);
+
 	//Create Fazan Game object and load words
-	std::clog << "[+] Incarcare cuvinte ...";
 	FazanDataStructure* x = new FazanDataStructure(*inp);
-	std::clog << "\n[+] Au fost incarcate " << x->getNoWords() << " cuvinte.\n";
 	inp->close();
 	delete inp;
 
-	//Print main menu and get option
-	size_t option = printMenu();
+	//Get option from printMenu
+	size_t option = opt_rez.get();
 
 	//Menu
 	switch (option) {
@@ -80,8 +83,9 @@ int main() {
 	case 3:
 		Extra::generateBlockingWords(x);
 		break;
-	default:
-		std::cout << "Alegere incorecta";
+	case 4:
+		Extra::generateLongChain(x);
+		break;
 	}
 
 	delete x;

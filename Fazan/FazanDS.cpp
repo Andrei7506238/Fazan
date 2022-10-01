@@ -24,9 +24,9 @@ void FazanDataStructure::addWords(std::istream& fin) {
 }
 
 void FazanDataStructure::generatePossibilityVector() {
-	for (size_t line = 0; line < 961; line++) {
+	for (size_t line = 0; line < MLCGS; line++) {
 		size_t count = 0;
-		for (size_t col = 0; col < 961; col++) {
+		for (size_t col = 0; col < MLCGS; col++) {
 			count += mat[line][col].size();
 		}
 		possVector[line] = count;
@@ -40,7 +40,7 @@ size_t FazanDataStructure::getNoWords() {
 std::pair<std::string, size_t> FazanDataStructure::suggestWord(const std::string& givenWord) {
 	size_t pfxId = MorphoAnalyzer::sufixId(givenWord);
 	size_t minVarId = 99999;
-	for (size_t col = 0; col < 961; col++) {
+	for (size_t col = 0; col < MLCGS; col++) {
 		if (mat[pfxId][col].size()) {
 			if (minVarId == 99999 || possVector[col] < possVector[minVarId])
 				minVarId = col;
@@ -76,7 +76,6 @@ bool FazanDataStructure::checkWordExists(const std::string& wordToCheck) {
 	return true;
 }
 
-//Does NOT check if word exists
 void FazanDataStructure::deleteWord(const std::string& wordToDelete) {
 	size_t prefix, sufix;
 	prefix = MorphoAnalyzer::prefixId(wordToDelete);
@@ -90,7 +89,7 @@ void FazanDataStructure::deleteWord(const std::string& wordToDelete) {
 	noWords--;
 }
 
-bool FazanDataStructure::checkBlockingWord(const std::string& wordToCheck){
+bool FazanDataStructure::checkBlockingWord(const std::string& wordToCheck) {
 	try {
 		if (possVector[MorphoAnalyzer::sufixId(wordToCheck)] == 0) return true;
 		return false;
@@ -101,9 +100,9 @@ bool FazanDataStructure::checkBlockingWord(const std::string& wordToCheck){
 
 }
 
-std::list<std::string> FazanDataStructure::getBlockingWords(size_t givenPrefixId){
+std::list<std::string> FazanDataStructure::getBlockingWords(size_t givenPrefixId) {
 	std::list<std::string> blockingWordsStartingWithGivenPrefixId;
-	for (size_t col = 0; col < 961; col++) {
+	for (size_t col = 0; col < MLCGS; col++) {
 		if (mat[givenPrefixId][col].size() && checkBlockingWord(mat[givenPrefixId][col][0])) {
 			for (auto& blockingWord : mat[givenPrefixId][col])
 				blockingWordsStartingWithGivenPrefixId.push_back(blockingWord);
@@ -111,4 +110,34 @@ std::list<std::string> FazanDataStructure::getBlockingWords(size_t givenPrefixId
 	}
 
 	return blockingWordsStartingWithGivenPrefixId;
+}
+
+std::string FazanDataStructure::getMaxWordWithPrefix(int givenPrefix) {
+	size_t mx_value = 0;
+	size_t mx_pos = 0;
+
+	if (givenPrefix == -1) {
+		for (int swpfx = 1; swpfx < MLCGS; ++swpfx) {
+			if (possVector[swpfx] > mx_value) {
+				mx_value = possVector[swpfx];
+				mx_pos = swpfx;
+			}
+		}
+
+		givenPrefix = mx_pos;
+		mx_pos = 0;
+		mx_value = 0;
+	}
+
+	for (int nwpfx = 1; nwpfx < MLCGS; ++nwpfx) {
+		if (possVector[nwpfx] > mx_value) {
+			if (mat[givenPrefix][nwpfx].size() > 0) {
+				mx_pos = nwpfx;
+				mx_value = possVector[mx_pos];
+			}
+		}
+	}
+
+	if (mx_value == 0) return "";
+	return mat[givenPrefix][mx_pos][0];
 }
