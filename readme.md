@@ -7,7 +7,7 @@ Programul va juca agresiv, greedy, incercand sa minimizeze numarul minim de cuvi
 - [x] Posibilitatea de a seta regulile jocului dupa preferinte (se accepta / nu se accepta acelasi cuvant de mai multe ori - caz in care va fi posibila memorarea cuvintelor spuse de ceilalti jucatori, precum si cuvantului propriu din prima runda).
 - [x] Programul va semnala cuvintele care nu exista in lista de cuvinte sau care au fost folosite deja (in functie de regulile jocului)
 - [X] Care este durata maxima a unui joc de fazan in care niciun jucator nu este inchis ? (nu sunt acceptate cuvinte duplicate)
-- [x] Lista de cuvinte care poate fi folosita pentru inchideri, sortata dupa prefix [Forma Baza](rezultatCercetare/ListaCuvinteFolositeLaBlocareBaza.md) [Forma Flexionara](rezultatCercetare/ListaCuvinteFolositeLaBlocareFlex.md)
+- [x] Lista de cuvinte care poate fi folosita pentru inchideri, sortata dupa prefix [Forma Baza](rezultatCercetare/ListaCuvinteFolositeLaBlocareBaza.md) | [Forma Flexionara](rezultatCercetare/ListaCuvinteFolositeLaBlocareFlex.md)
 
 ## Instructiuni meniu:
 1. Se alege lista de cuvinte dorita introducand una din tastele 1,2 sau 3, urmat de enter. Pentru informatii privind lista custom de cuvinte mergi mai jos.
