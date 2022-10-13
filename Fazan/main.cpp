@@ -84,7 +84,7 @@ int main() {
 		Extra::generateBlockingWords(x);
 		break;
 	case 4:
-		Extra::generateLongChain(x);
+		Extra::generateLongPath(x);
 		break;
 	}
 

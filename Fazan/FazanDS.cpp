@@ -2,7 +2,7 @@
 
 FazanDataStructure::FazanDataStructure(std::istream& inp) {
 	addWords(inp);
-	generatePossibilityVector();
+	generateNONSV();
 }
 
 void FazanDataStructure::addWords(std::istream& fin) {
@@ -23,13 +23,13 @@ void FazanDataStructure::addWords(std::istream& fin) {
 	}
 }
 
-void FazanDataStructure::generatePossibilityVector() {
+void FazanDataStructure::generateNONSV() {
 	for (size_t line = 0; line < MLCGS; line++) {
 		size_t count = 0;
 		for (size_t col = 0; col < MLCGS; col++) {
 			count += mat[line][col].size();
 		}
-		possVector[line] = count;
+		numberOfNodeSuccessorsVec[line] = count;
 	}
 }
 
@@ -42,17 +42,17 @@ std::pair<std::string, size_t> FazanDataStructure::suggestWord(const std::string
 	size_t minVarId = 99999;
 	for (size_t col = 0; col < MLCGS; col++) {
 		if (mat[pfxId][col].size()) {
-			if (minVarId == 99999 || possVector[col] < possVector[minVarId])
+			if (minVarId == 99999 || numberOfNodeSuccessorsVec[col] < numberOfNodeSuccessorsVec[minVarId])
 				minVarId = col;
 		}
 	}
 
 	if (minVarId == 99999) return { "", 99999 };
-	return { mat[pfxId][minVarId][0], possVector[minVarId] };
+	return { mat[pfxId][minVarId][0], numberOfNodeSuccessorsVec[minVarId] };
 }
 
 //Might throw exception
-std::vector<std::string>::iterator FazanDataStructure::find_word(const std::string& wordToFind)
+std::vector<std::string>::iterator FazanDataStructure::findWord(const std::string& wordToFind)
 {
 	size_t prefix, sufix;
 	prefix = MorphoAnalyzer::prefixId(wordToFind);
@@ -66,7 +66,7 @@ bool FazanDataStructure::checkWordExists(const std::string& wordToCheck) {
 	try {
 		prefix = MorphoAnalyzer::prefixId(wordToCheck);
 		sufix = MorphoAnalyzer::sufixId(wordToCheck);
-		auto foundAt = find_word(wordToCheck);
+		auto foundAt = findWord(wordToCheck);
 		if (foundAt == mat[prefix][sufix].end()) return false;
 	}
 	catch (...) {
@@ -81,17 +81,17 @@ void FazanDataStructure::deleteWord(const std::string& wordToDelete) {
 	prefix = MorphoAnalyzer::prefixId(wordToDelete);
 	sufix = MorphoAnalyzer::sufixId(wordToDelete);
 
-	auto foundAt = find_word(wordToDelete);
+	auto foundAt = findWord(wordToDelete);
 	mat[prefix][sufix].erase(foundAt);
 
 	//Update number of words and possibility vector
-	possVector[prefix]--;
+	numberOfNodeSuccessorsVec[prefix]--;
 	noWords--;
 }
 
 bool FazanDataStructure::checkBlockingWord(const std::string& wordToCheck) {
 	try {
-		if (possVector[MorphoAnalyzer::sufixId(wordToCheck)] == 0) return true;
+		if (numberOfNodeSuccessorsVec[MorphoAnalyzer::sufixId(wordToCheck)] == 0) return true;
 		return false;
 	}
 	catch (...) {
@@ -118,8 +118,8 @@ std::string FazanDataStructure::getMaxWordWithPrefix(int givenPrefix) {
 
 	if (givenPrefix == -1) {
 		for (int swpfx = 1; swpfx < MLCGS; ++swpfx) {
-			if (possVector[swpfx] > mx_value) {
-				mx_value = possVector[swpfx];
+			if (numberOfNodeSuccessorsVec[swpfx] > mx_value) {
+				mx_value = numberOfNodeSuccessorsVec[swpfx];
 				mx_pos = swpfx;
 			}
 		}
@@ -130,10 +130,10 @@ std::string FazanDataStructure::getMaxWordWithPrefix(int givenPrefix) {
 	}
 
 	for (int nwpfx = 1; nwpfx < MLCGS; ++nwpfx) {
-		if (possVector[nwpfx] > mx_value) {
+		if (numberOfNodeSuccessorsVec[nwpfx] > mx_value) {
 			if (mat[givenPrefix][nwpfx].size() > 0) {
 				mx_pos = nwpfx;
-				mx_value = possVector[mx_pos];
+				mx_value = numberOfNodeSuccessorsVec[mx_pos];
 			}
 		}
 	}

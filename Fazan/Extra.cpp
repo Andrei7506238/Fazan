@@ -21,8 +21,8 @@ void Extra::generateBlockingWords(FazanDataStructure* x) {
 	out.close();
 }
 
-void Extra::generateLongChain(FazanDataStructure* x) {
-	std::ofstream out("longestChain.txt");
+void Extra::generateLongPath(FazanDataStructure* x) {
+	std::ofstream out("longPath.txt");
 	if (!out.good()) {
 		std::cerr << "[-] EROARE : Fisierul \"longestChain.txt\" nu a putut fi deschis pentru scriere";
 		exit(1);
@@ -38,7 +38,7 @@ void Extra::generateLongChain(FazanDataStructure* x) {
 		bestWord = x->getMaxWordWithPrefix(MorphoAnalyzer::sufixId(bestWord));
 	}
 
-	std::cout << "Fisier \"longestChain.txt\" generat. Numar cuvinte lant : " << countChainWords;
+	std::cout << "Fisier \"longPath.txt\" generat. Numar cuvinte drum : " << countChainWords;
 	out.close();
 }
 

@@ -8,6 +8,6 @@ class Extra{
 public:
 	static void generateBlockingWords(FazanDataStructure* x);
 
-	static void generateLongChain(FazanDataStructure* x);
+	static void generateLongPath(FazanDataStructure* x);
 };
 

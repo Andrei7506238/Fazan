@@ -16,13 +16,13 @@ private:
 	//Vector of words for every combination of prefix and sufix
 	std::vector<std::string> mat[MLCGS][MLCGS];
 	//How many possible word are starting with a given prefix
-	size_t possVector[MLCGS]{};					
+	size_t numberOfNodeSuccessorsVec[MLCGS]{};					
 
 	//Enter words in dictionary from a given input stream
 	void addWords(std::istream& fin);
 
-	//Generate the vector of possible words
-	void generatePossibilityVector();
+	//Generate the vector of possible of number of node successors
+	void generateNONSV();
 
 public:
 	FazanDataStructure(std::istream& inp);
@@ -31,7 +31,7 @@ public:
 	std::pair<std::string, size_t> suggestWord(const std::string& givenWord);
 	
 	//Get iterator to a certain word
-	std::vector<std::string>::iterator find_word(const std::string& wordToFind);
+	std::vector<std::string>::iterator findWord(const std::string& wordToFind);
 	
 	//Check if a word exists
 	bool checkWordExists(const std::string& wordToCheck);

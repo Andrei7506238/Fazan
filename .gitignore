@@ -234,4 +234,8 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-Fazan/longestChain.txt
+
+
+# CUSTOM
+longPath.txt
+blockingWords.txt
