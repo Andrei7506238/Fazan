@@ -2,6 +2,8 @@
 Implementarea unui cheat pentru jocul [FAZAN](https://ro.wikipedia.org/wiki/Fazan_(joc)).
 Programul va juca agresiv, greedy, incercand sa minimizeze numarul minim de cuvinte pe care urmatorul adversar le poate propune.
 
+![Artboard 3PNG](https://user-images.githubusercontent.com/52383534/218466893-c75d93c7-7f2a-4a86-b23a-f483f69ad385.png)
+
 ![VsDebugConsole_DmISA22HDT](https://user-images.githubusercontent.com/52383534/193421758-022272d5-c19e-49d2-a0c8-9dcb7350e1d0.gif)
 
 
