@@ -15,13 +15,23 @@
 #include "QMouseEvent"
 #include "SplashScreen.h"
 
+#include "FazanDS.h"
+#include "FazanCheatGame.h"
+#include "Extra.h"
+#include <thread>
+#include <future>
+
+
 class FazanGUI : public QMainWindow
 {
     Q_OBJECT
 
 public:
     FazanGUI(QWidget *parent = nullptr);
-    ~FazanGUI();
+    ~FazanGUI() override = default;
+
+public slots:
+    void loadWords(FazanDataStructure* fds);
 
 private:
     Ui::FazanGUIClass ui;
@@ -60,6 +70,8 @@ private:
     QPushButton btnTitleApp;
 
     QPoint curPos;
+
+    FazanDataStructure* x;
 
 private:
     void initOptions(const unsigned optionsContainerVerticalOffset);

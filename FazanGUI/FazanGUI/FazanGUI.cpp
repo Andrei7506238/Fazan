@@ -2,14 +2,12 @@
 #include "FazanGUI.h"
 #include "FazanGUI.h"
 
+
 FazanGUI::FazanGUI(QWidget* parent)
 	: QMainWindow(parent, Qt::FramelessWindowHint)
 {
 	setFixedSize(kWindowW, kWindowH);
 	setStyleSheet("background: #4B164B; font-family: 'Comic Neue'; font-style: normal; font-size: 20px;");
-
-	SplashScreen* ls = new SplashScreen;
-	ls->show();
 
 	//Status bar
 	initStatusBar();
@@ -56,9 +54,6 @@ FazanGUI::FazanGUI(QWidget* parent)
 	//dgWarn.setText("The entered word can't be found in the word list or has been eliminated");
 	//dgWarn.exec();
 }
-
-FazanGUI::~FazanGUI()
-{}
 
 void FazanGUI::initOptions(const unsigned optionsContainerVerticalOffset)
 {
@@ -141,6 +136,11 @@ void FazanGUI::mouseMoveEvent(QMouseEvent* event)
 	auto newPos = event->globalPos() - curPos;
 	move(pos() + newPos);
 	curPos = event->globalPos();
+}
+
+void FazanGUI::loadWords(FazanDataStructure *fds)
+{
+	x = fds;
 }
 
 void FazanGUI::onExitApplicationBtnRelease()
