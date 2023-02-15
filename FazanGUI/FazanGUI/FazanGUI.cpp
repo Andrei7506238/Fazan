@@ -32,6 +32,9 @@ FazanGUI::FazanGUI(QWidget* parent)
 	btnEnterWord.setStyleSheet("color: white; font-style: bold; background-color: #571957;");
 	btnEnterWord.setText("Enter");
 
+	connect(&btnEnterWord, &QPushButton::released, this, &FazanGUI::onGenerateRelease);
+	connect(&inpWord, &QLineEdit::end, this, &FazanGUI::onGenerateRelease);
+
 
 	//Recomended word
 	const unsigned kWordRecomVerticalOffset = kLogoSize + kInputMargin + 50;
@@ -48,11 +51,11 @@ FazanGUI::FazanGUI(QWidget* parent)
 
 	//Buttons
 	initBtns(kWindowH - 50);
+}
 
-	////Warning
-	//QMessageBox dgWarn;
-	//dgWarn.setText("The entered word can't be found in the word list or has been eliminated");
-	//dgWarn.exec();
+FazanGUI::~FazanGUI()
+{
+	delete x;
 }
 
 void FazanGUI::initOptions(const unsigned optionsContainerVerticalOffset)
@@ -71,6 +74,11 @@ void FazanGUI::initOptions(const unsigned optionsContainerVerticalOffset)
 	layOptions.addWidget(&chkDeleteRec);
 	layOptions.addWidget(&chkDoRec);
 	layOptions.addWidget(&chkDoCheck);
+
+	chkDeleteTyped.setCheckState(Qt::Checked);
+	chkDeleteRec.setCheckState(Qt::Checked);
+	chkDoRec.setCheckState(Qt::Checked);
+	chkDoCheck.setCheckState(Qt::Checked);
 }
 
 void FazanGUI::initBtns(const unsigned btnContainerVerticalOffset)
@@ -156,4 +164,52 @@ void FazanGUI::onMinimizeApplicationBtnRelease()
 void FazanGUI::onLogoRelease()
 {
 	QDesktopServices::openUrl(QUrl("https://github.com/Andrei7506238/Fazan"));
+}
+
+void FazanGUI::onGenerateRelease()
+{
+	//Get word
+	std::string nw = inpWord.text().toStdString();
+
+	bool processAnyway = !chkDoCheck.checkState();
+
+	//Check if the word is valid
+	bool wordIsValid = true;
+	if (!x->checkWordExists(nw)) {
+		wordIsValid = false;
+
+		//If process anyway skip over the message and continue round
+		if (!processAnyway) {
+
+			//Warning
+			auto dgWarn = std::make_shared<QMessageBox>();
+			dgWarn->setText("The entered word can't be found in the word list or has been eliminated");
+			dgWarn->exec();
+
+			return;
+		}
+	}
+
+	//Delete adversary word if word is valid
+	if (wordIsValid && chkDeleteTyped.checkState())
+		x->deleteWord(nw);
+
+	//If not marked only for deletion get suggestion
+	if (chkDoRec.checkState()) {
+		auto res = x->suggestWord(nw);
+
+		//If words are avaliable
+		if (res.first.length()) {
+			inpRec.setText(QString::fromStdString(res.first));
+
+			//Delete reccomended word if checkbox set
+			if(chkDeleteRec.checkState())
+				x->deleteWord(res.first);
+		}
+		//Otherwise round over for advantage player
+		else {
+			inpRec.setText("FAILED");
+		}
+	}
+
 }

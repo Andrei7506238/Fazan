@@ -28,7 +28,7 @@ class FazanGUI : public QMainWindow
 
 public:
     FazanGUI(QWidget *parent = nullptr);
-    ~FazanGUI() override = default;
+    ~FazanGUI() override;
 
 public slots:
     void loadWords(FazanDataStructure* fds);
@@ -85,4 +85,5 @@ private slots:
     void onExitApplicationBtnRelease();
     void onMinimizeApplicationBtnRelease();
     void onLogoRelease();
+    void onGenerateRelease();
 };
