@@ -43,6 +43,8 @@ private:
     const unsigned kInputMargin = 20;
     const unsigned kEnterWordBtnWidth = 70;
 
+
+    //Member Variables
     QLabel lblLogo;
 
 	QLineEdit inpWord;
@@ -70,14 +72,17 @@ private:
     QPushButton btnTitleApp;
 
     QPoint curPos;
-
     FazanDataStructure* x;
 
 private:
+    //Initialize fields
     void initOptions(const unsigned optionsContainerVerticalOffset);
     void initBtns(const unsigned btnContainerVerticalOffset);
     void initStatusBar();
+    void initLogo();
+    void initInputLines();
 
+    //Make window draggable
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
 
@@ -85,5 +90,8 @@ private slots:
     void onExitApplicationBtnRelease();
     void onMinimizeApplicationBtnRelease();
     void onLogoRelease();
-    void onGenerateRelease();
+
+	void onGenerateRelease();
+    void onGenerateBlockingWordsBtnRelease() const;
+    void onGenerateLongPathBtnRelease() const;
 };

@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     auto th = std::thread([&]() {
         auto minTimeExit = std::chrono::system_clock::now() + std::chrono::seconds(2);
 
-        std::ifstream fin("flex.txt");
+        std::ifstream fin("redus.txt");
         fazanDS = new FazanDataStructure(fin);
 
         std::this_thread::sleep_until(minTimeExit);
