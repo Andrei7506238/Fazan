@@ -139,16 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Extra.cpp" />
     <ClCompile Include="FazanDS.cpp" />
-    <ClCompile Include="FazanCheatGame.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="MorphoAnalyzer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Extra.h" />
     <ClInclude Include="FazanDS.h" />
-    <ClInclude Include="FazanCheatGame.h" />
     <ClInclude Include="MorphoAnalyzer.h" />
   </ItemGroup>
   <ItemGroup>
