@@ -1,7 +1,7 @@
 #include "FazanDS.h"
 
-FazanDataStructure::FazanDataStructure(std::istream& inp) {
-	addWords(inp);
+FazanDataStructure::FazanDataStructure(std::istream& inp, const std::list<std::regex>& ignoreList) {
+	addWords(inp, ignoreList);
 	generateNONSV();
 }
 

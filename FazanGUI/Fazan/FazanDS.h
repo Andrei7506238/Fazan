@@ -20,13 +20,13 @@ private:
 	size_t numberOfNodeSuccessorsVec[MLCGS]{};					
 
 	//Enter words in dictionary from a given input stream
-	void addWords(std::istream& fin, const std::list<std::regex>& ignoreList = {});
+	void addWords(std::istream& fin, const std::list<std::regex>& ignoreList);
 
 	//Generate the vector of possible of number of node successors
 	void generateNONSV();
 
 public:
-	FazanDataStructure(std::istream& inp);
+	FazanDataStructure(std::istream& inp, const std::list<std::regex>& ignoreList = {});
 
 	//Calculate the best word in order to give the opponent the minumum number of possibilities. Returns word and possibilities of opponent
 	std::pair<std::string, size_t> suggestWord(const std::string& givenWord);

@@ -1,5 +1,8 @@
 #include "SplashScreen.h"
 
+#include <fstream>
+#include <random>
+
 SplashScreen::SplashScreen(QWidget* parent):
 	QWidget(parent, Qt::FramelessWindowHint)
 {
@@ -21,7 +24,7 @@ SplashScreen::SplashScreen(QWidget* parent):
 	setWindowIcon(QIcon(pixBtnTitleApp));
 
 	srand(time(NULL));
-	QString tipChosen = QString::fromStdString(funFacts[rand() % funFacts.size()]);
+	QString tipChosen = QString::fromStdString(loadRandomFunFact());
 	lblTip.setParent(this);
 	lblTip.setText(tipChosen);
 	lblTip.setAlignment(Qt::AlignHCenter);
@@ -30,4 +33,21 @@ SplashScreen::SplashScreen(QWidget* parent):
 	lblTip.setWordWrap(true);
 }
 
+std::string SplashScreen::loadRandomFunFact()
+{
+	std::ifstream funFactFile("funfacts.txt");
+	if (!funFactFile.good())
+		return "FAZAN";
 
+	std::vector<std::string> facts;
+	std::string fact;
+
+	while (funFactFile) {
+		std::getline(funFactFile, fact);
+		facts.emplace_back(fact);
+	}
+
+	std::random_device rd;
+	std::uniform_int_distribution<int> dist(0, facts.size());
+	return(facts[dist(rd)]);
+}
