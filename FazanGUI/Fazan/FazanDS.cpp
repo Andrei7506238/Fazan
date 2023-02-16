@@ -5,7 +5,7 @@ FazanDataStructure::FazanDataStructure(std::istream& inp) {
 	generateNONSV();
 }
 
-void FazanDataStructure::addWords(std::istream& fin) {
+void FazanDataStructure::addWords(std::istream& fin, const std::list<std::regex>& ignoreList) {
 	noWords = 0;
 	std::string tmp;
 
@@ -13,6 +13,17 @@ void FazanDataStructure::addWords(std::istream& fin) {
 		fin >> tmp;
 		MorphoAnalyzer::convertLwr(tmp);
 		if (tmp.length() < 3) continue;
+
+		bool isAcceptedWord = true;
+		for (const auto& regx : ignoreList)
+			if (std::regex_match(tmp, regx))
+			{
+				isAcceptedWord = false;
+				break;
+			}
+		if (!isAcceptedWord)
+			continue;
+
 		try {
 			mat[MorphoAnalyzer::prefixId(tmp)][MorphoAnalyzer::sufixId(tmp)].push_back(tmp);
 			++noWords;

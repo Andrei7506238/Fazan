@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 #include <utility>
+#include <regex>
 #include "MorphoAnalyzer.h"
 
 class FazanDataStructure {
@@ -19,7 +20,7 @@ private:
 	size_t numberOfNodeSuccessorsVec[MLCGS]{};					
 
 	//Enter words in dictionary from a given input stream
-	void addWords(std::istream& fin);
+	void addWords(std::istream& fin, const std::list<std::regex>& ignoreList = {});
 
 	//Generate the vector of possible of number of node successors
 	void generateNONSV();
