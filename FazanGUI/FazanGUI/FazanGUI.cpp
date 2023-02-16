@@ -53,11 +53,9 @@ void FazanGUI::initBtns(const unsigned btnContainerVerticalOffset)
 	containerBtn.setObjectName("containerBtn");
 	containerBtn.setStyleSheet("QWidget{color: white; font-size: 18px; background-color: #571957;} QWidget#containerBtn{background-color: #330F33;}");
 
-	btnReload.setText("Reload List");
 	btnGenLockWord.setText("Block List");
 	btnGenLongChain.setText("Long Game");
 
-	layBtn.addWidget(&btnReload);
 	layBtn.addWidget(&btnGenLockWord);
 	layBtn.addWidget(&btnGenLongChain);
 
@@ -124,7 +122,7 @@ void FazanGUI::initInputLines()
 	btnEnterWord.setText("Enter");
 
 	connect(&btnEnterWord, &QPushButton::released, this, &FazanGUI::onGenerateRelease);
-	connect(&inpWord, &QLineEdit::end, this, &FazanGUI::onGenerateRelease);
+	connect(&inpWord, &QLineEdit::returnPressed, this, &FazanGUI::onGenerateRelease);
 
 
 	//Recomended word
