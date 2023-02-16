@@ -18,6 +18,14 @@ Imagine having a secret weapon at your disposal in the game of [FAZAN](https://r
 
 More about every option and how the cheat works can be found in the wiki.
 
+## Technical info:
+This project's most remarkable aspect is its underlying data structure: a directed multigraph based on a generalized adjacency matrix. The multigraph's nodes are identified by all possible 2-letter combinations, while edges connect a prefix node with a suffix node via a word. This configuration facilitates the creation of a matrix where each row corresponds to a prefix node, each column represents a suffix node, and each cell contains a list of words linking the two nodes.
+
+To optimize performance, a secondary vector is utilized to track the outdegree of each node. This is a common operation and it can be computationally expensive.
+
+The cheat mechanism operates by identifying the node Y with the smallest non-zero outdegree connected to the current user-entered word's suffix node X. Subsequently, the program returns one of the words found in the X→Y edge, utilizing a greedy and efficient approach. As it might not be as good as a minimax approach, more often than not the cheat instantly blocks the next opponent.
+
+The challenge of finding the longest non-repeating word chain is equivalent to the problem of identifying a maximum-length simple path, [a task known to be NP-complete](https://en.wikipedia.org/wiki/Longest_path_problem#NP-hardness). Therefore, this project adopts a simple greedy heuristic algorithm that may not always produce the longest path. Nevertheless, the program's output remains a compelling and intriguing result. 
 
 ## Information regarding the word list:
 - The current lists are modified versions of the Official List of Words allowed in Scrabble (LOC) available on dexonline:
