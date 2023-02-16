@@ -1,24 +1,35 @@
 #include "FazanDS.h"
 
-FazanDataStructure::FazanDataStructure(std::istream& inp) {
-	addWords(inp);
+FazanDataStructure::FazanDataStructure(std::wistream& inp, const std::list<std::wregex>& ignoreList) {
+	addWords(inp, ignoreList);
 	generateNONSV();
 }
 
-void FazanDataStructure::addWords(std::istream& fin) {
+void FazanDataStructure::addWords(std::wistream& fin, const std::list<std::wregex>& ignoreList) {
 	noWords = 0;
-	std::string tmp;
+	std::wstring tmp;
 
 	while (fin) {
 		fin >> tmp;
 		MorphoAnalyzer::convertLwr(tmp);
 		if (tmp.length() < 3) continue;
+
+		bool isAcceptedWord = true;
+		for (const auto& regx : ignoreList)
+			if(std::regex_match(tmp, regx))
+			{
+				isAcceptedWord = false;
+				break;
+			}
+		if(!isAcceptedWord)
+			continue;
+
 		try {
 			mat[MorphoAnalyzer::prefixId(tmp)][MorphoAnalyzer::sufixId(tmp)].push_back(tmp);
 			++noWords;
 		}
 		catch (...) {
-			std::cerr << "\n  [-] Eroare cuvant invalid : " << tmp;
+			//std::cerr << "\n  [-] Eroare cuvant invalid : " << tmp;
 		}
 	}
 }
@@ -37,7 +48,7 @@ size_t FazanDataStructure::getNoWords() {
 	return noWords;
 }
 
-std::pair<std::string, size_t> FazanDataStructure::suggestWord(const std::string& givenWord) {
+std::pair<std::wstring, size_t> FazanDataStructure::suggestWord(const std::wstring& givenWord) {
 	size_t pfxId = MorphoAnalyzer::sufixId(givenWord);
 	size_t minVarId = 99999;
 	for (size_t col = 0; col < MLCGS; col++) {
@@ -47,12 +58,12 @@ std::pair<std::string, size_t> FazanDataStructure::suggestWord(const std::string
 		}
 	}
 
-	if (minVarId == 99999) return { "", 99999 };
+	if (minVarId == 99999) return { std::wstring(), 99999};
 	return { mat[pfxId][minVarId][0], numberOfNodeSuccessorsVec[minVarId] };
 }
 
 //Might throw exception
-std::vector<std::string>::iterator FazanDataStructure::findWord(const std::string& wordToFind)
+std::vector<std::wstring>::iterator FazanDataStructure::findWord(const std::wstring& wordToFind)
 {
 	size_t prefix, sufix;
 	prefix = MorphoAnalyzer::prefixId(wordToFind);
@@ -61,7 +72,7 @@ std::vector<std::string>::iterator FazanDataStructure::findWord(const std::strin
 	return std::find(mat[prefix][sufix].begin(), mat[prefix][sufix].end(), wordToFind);
 }
 
-bool FazanDataStructure::checkWordExists(const std::string& wordToCheck) {
+bool FazanDataStructure::checkWordExists(const std::wstring& wordToCheck) {
 	size_t prefix, sufix;
 	try {
 		prefix = MorphoAnalyzer::prefixId(wordToCheck);
@@ -76,7 +87,7 @@ bool FazanDataStructure::checkWordExists(const std::string& wordToCheck) {
 	return true;
 }
 
-void FazanDataStructure::deleteWord(const std::string& wordToDelete) {
+void FazanDataStructure::deleteWord(const std::wstring& wordToDelete) {
 	size_t prefix, sufix;
 	prefix = MorphoAnalyzer::prefixId(wordToDelete);
 	sufix = MorphoAnalyzer::sufixId(wordToDelete);
@@ -89,7 +100,7 @@ void FazanDataStructure::deleteWord(const std::string& wordToDelete) {
 	noWords--;
 }
 
-bool FazanDataStructure::checkBlockingWord(const std::string& wordToCheck) {
+bool FazanDataStructure::checkBlockingWord(const std::wstring& wordToCheck) {
 	try {
 		if (numberOfNodeSuccessorsVec[MorphoAnalyzer::sufixId(wordToCheck)] == 0) return true;
 		return false;
@@ -100,8 +111,8 @@ bool FazanDataStructure::checkBlockingWord(const std::string& wordToCheck) {
 
 }
 
-std::list<std::string> FazanDataStructure::getBlockingWords(size_t givenPrefixId) {
-	std::list<std::string> blockingWordsStartingWithGivenPrefixId;
+std::list<std::wstring> FazanDataStructure::getBlockingWords(size_t givenPrefixId) {
+	std::list<std::wstring> blockingWordsStartingWithGivenPrefixId;
 	for (size_t col = 0; col < MLCGS; col++) {
 		if (mat[givenPrefixId][col].size() && checkBlockingWord(mat[givenPrefixId][col][0])) {
 			for (auto& blockingWord : mat[givenPrefixId][col])
@@ -112,7 +123,7 @@ std::list<std::string> FazanDataStructure::getBlockingWords(size_t givenPrefixId
 	return blockingWordsStartingWithGivenPrefixId;
 }
 
-std::string FazanDataStructure::getMaxWordWithPrefix(int givenPrefix) {
+std::wstring FazanDataStructure::getMaxWordWithPrefix(int givenPrefix) {
 	size_t mx_value = 0;
 	size_t mx_pos = 0;
 
@@ -138,6 +149,6 @@ std::string FazanDataStructure::getMaxWordWithPrefix(int givenPrefix) {
 		}
 	}
 
-	if (mx_value == 0) return "";
+	if (mx_value == 0) return {};
 	return mat[givenPrefix][mx_pos][0];
 }

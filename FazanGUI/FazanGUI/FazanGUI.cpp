@@ -174,7 +174,7 @@ void FazanGUI::onLogoRelease()
 void FazanGUI::onGenerateRelease()
 {
 	//Get word
-	std::string nw = inpWord.text().toStdString();
+	std::wstring nw = inpWord.text().toStdWString();
 
 	//Check if the word is valid
 	bool wordIsValid = true;
@@ -203,7 +203,7 @@ void FazanGUI::onGenerateRelease()
 
 		//If words are avaliable
 		if (res.first.length()) {
-			inpRec.setText(QString::fromStdString(res.first));
+			inpRec.setText(QString::fromStdWString(res.first));
 
 			//Delete reccomended word if checkbox set
 			if(chkDeleteRec.checkState())
@@ -220,7 +220,7 @@ void FazanGUI::onGenerateRelease()
 void FazanGUI::onGenerateBlockingWordsBtnRelease() const
 {
 	size_t countBlockingWords = 0;
-	std::ofstream out("blockingWords.txt");
+	std::wofstream out("blockingWords.txt");
 	if (!out.good()) {
 		auto dgWarn = std::make_shared<QMessageBox>();
 		dgWarn->setText("The file Blockingwords.txt couldn't be opened for writing.");
@@ -237,14 +237,16 @@ void FazanGUI::onGenerateBlockingWordsBtnRelease() const
 	}
 
 	auto dgSuccess = std::make_shared<QMessageBox>();
-	dgSuccess->setText("The file Blockingwords.txt generated. Number of blocking words: " + countBlockingWords);
+	dgSuccess->setText("The file Blockingwords.txt generated. Number of blocking words: " +  QString::number(countBlockingWords));
 	dgSuccess->exec();
 	out.close();
+
+	QDesktopServices::openUrl(QUrl("."));
 }
 
 void FazanGUI::onGenerateLongPathBtnRelease() const
 {
-	std::ofstream out("longPath.txt");
+	std::wofstream out("longPath.txt");
 	if (!out.good()) {
 		auto dgWarn = std::make_shared<QMessageBox>();
 		dgWarn->setText("The file longestChain.txt couldn't be opened for writing.");
@@ -253,7 +255,7 @@ void FazanGUI::onGenerateLongPathBtnRelease() const
 
 	size_t countChainWords = 0;
 
-	std::string bestWord = x->getMaxWordWithPrefix();
+	auto bestWord = x->getMaxWordWithPrefix();
 	while (bestWord.length() > 0) {
 		out << bestWord << std::endl;
 		++countChainWords;
@@ -262,7 +264,9 @@ void FazanGUI::onGenerateLongPathBtnRelease() const
 	}
 
 	auto dgSuccess = std::make_shared<QMessageBox>();
-	dgSuccess->setText("The file longestChain.txt generated. Number of blocking words: " + countChainWords);
+	dgSuccess->setText("The file longestChain.txt generated. Number of blocking words: " + QString::number(countChainWords));
 	dgSuccess->exec();
 	out.close();
+
+	QDesktopServices::openUrl(QUrl("."));
 }

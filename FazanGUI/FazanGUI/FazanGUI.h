@@ -16,11 +16,10 @@
 #include "SplashScreen.h"
 
 #include "FazanDS.h"
-#include "FazanCheatGame.h"
-#include "Extra.h"
 #include <thread>
 #include <future>
 
+#include <fstream>
 
 class FazanGUI : public QMainWindow
 {

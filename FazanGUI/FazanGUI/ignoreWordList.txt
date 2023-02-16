@@ -1,0 +1,4 @@
+[a-z]+ind
+[a-z]+and
+[a-z]+ea
+[a-z]+ii
