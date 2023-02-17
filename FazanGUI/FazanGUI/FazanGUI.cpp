@@ -29,8 +29,8 @@ void FazanGUI::initOptions(const unsigned optionsContainerVerticalOffset)
 	containerChk.setLayout(&layOptions);
 	containerChk.setStyleSheet("QWidget{color: white; font-size: 16px;}");
 
-	chkDeleteTyped.setText("Removed typed words");
-	chkDeleteRec.setText("Removed recommended words");
+	chkDeleteTyped.setText("Remove typed words");
+	chkDeleteRec.setText("Remove recommended words");
 	chkDoRec.setText("Recommend words");
 	chkDoCheck.setText("Check typed words");
 
