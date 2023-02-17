@@ -6,6 +6,8 @@
 SplashScreen::SplashScreen(QWidget* parent):
 	QWidget(parent, Qt::FramelessWindowHint)
 {
+	setWindowTitle("Fazan Loading Words");
+	setWindowOpacity(0.9);
 	setFixedSize(400, 550);
 	setStyleSheet("font-family: 'Comic Neue'; font-style: bold; font-size: 25px; color: white;");
 	QPixmap pixBanner("res\\img\\Splash.png");
@@ -35,7 +37,7 @@ SplashScreen::SplashScreen(QWidget* parent):
 
 std::string SplashScreen::loadRandomFunFact()
 {
-	std::ifstream funFactFile("funfacts.txt");
+	std::ifstream funFactFile("res\\funfacts.txt");
 	if (!funFactFile.good())
 		return "FAZAN";
 

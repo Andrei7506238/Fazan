@@ -6,6 +6,7 @@
 FazanGUI::FazanGUI(QWidget* parent)
 	: QMainWindow(parent, Qt::FramelessWindowHint)
 {
+	setWindowTitle("Fazan Cheat and More");
 	setFixedSize(kWindowW, kWindowH);
 	setStyleSheet("background: #4B164B; font-family: 'Comic Neue'; font-style: normal; font-size: 20px;");
 
@@ -218,11 +219,12 @@ void FazanGUI::onGenerateRelease()
 void FazanGUI::onGenerateBlockingWordsBtnRelease() const
 {
 	size_t countBlockingWords = 0;
-	std::ofstream out("blockingWords.txt");
+	std::ofstream out("output\\blockingWords.txt");
 	if (!out.good()) {
 		auto dgWarn = std::make_shared<QMessageBox>();
-		dgWarn->setText("The file Blockingwords.txt couldn't be opened for writing.");
+		dgWarn->setText("The file blockingwords.txt couldn't be opened for writing.");
 		dgWarn->exec();
+		return;
 	}
 
 	for (size_t line = 0; line < FazanDataStructure::MLCGS; line++) {
@@ -235,18 +237,19 @@ void FazanGUI::onGenerateBlockingWordsBtnRelease() const
 	}
 
 	auto dgSuccess = std::make_shared<QMessageBox>();
-	dgSuccess->setText("The file Blockingwords.txt generated. Number of blocking words: " + countBlockingWords);
+	dgSuccess->setText("The file blockingwords.txt generated. Number of blocking words: " + QString::number(countBlockingWords));
 	dgSuccess->exec();
 	out.close();
 }
 
 void FazanGUI::onGenerateLongPathBtnRelease() const
 {
-	std::ofstream out("longPath.txt");
+	std::ofstream out("output\\longPath.txt");
 	if (!out.good()) {
 		auto dgWarn = std::make_shared<QMessageBox>();
 		dgWarn->setText("The file longestChain.txt couldn't be opened for writing.");
 		dgWarn->exec();
+		return;
 	}
 
 	size_t countChainWords = 0;
@@ -260,7 +263,7 @@ void FazanGUI::onGenerateLongPathBtnRelease() const
 	}
 
 	auto dgSuccess = std::make_shared<QMessageBox>();
-	dgSuccess->setText("The file longestChain.txt generated. Number of blocking words: " + countChainWords);
+	dgSuccess->setText("The file longestChain.txt generated. Number of blocking words: " + QString::number(countChainWords));
 	dgSuccess->exec();
 	out.close();
 }
