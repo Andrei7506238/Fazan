@@ -1,4 +1,7 @@
 <RCC>
-    <qresource prefix="FazanGUI">
+    <qresource prefix="/FazanGUI"/>
+    <qresource prefix="/new/Font">
+        <file>res/font/ComicNeue.ttf</file>
+        <file>res/font/ComicNeue-Bold.ttf</file>
     </qresource>
 </RCC>
