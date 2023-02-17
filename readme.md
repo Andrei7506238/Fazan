@@ -5,15 +5,17 @@ Imagine having a secret weapon at your disposal in the game of [FAZAN](https://r
 
 ## Objectives
 ### Cheat Objectives:
-- [x] The ability to load a word list based on the chosen game rules (base form (without diacritics) / inflectional form (with diacritics)), as well as the ability to load a custom word list (file name: custom.txt).
+- [x] The ability to load a word list based on the chosen game rules (base form (without diacritics) / inflectional form (with diacritics)), as well as the ability to load a custom word list.
 - [x] The ability to set the game rules according to preferences (whether or not the same word can be used multiple times - in which case the words said by other players, as well as the player's own word from the first round, can be memorized).
 - [x] The program will signal words that do not exist in the word list or have already been used (according to the game rules).
 
 ### Trivia & Research Objectives
-- [x] What is the maximum number of word in a game of Fazan in which no player is closed? (duplicate words are not accepted)
-- [x] The list of words that can be used for closures, sorted by prefix [Forma Baza](rezultatCercetare/ListaCuvinteFolositeLaBlocareBaza.md) | [Forma Flexionara](rezultatCercetare/ListaCuvinteFolositeLaBlocareFlex.md)
+- [x] What is the maximum number of word in a game of Fazan in which no player is closed? (duplicate words are not accepted) [BAZA](https://github.com/Andrei7506238/Fazan/wiki/Cel-mai-lung-lant-%5BBAZA%5D) | [FLEX](https://github.com/Andrei7506238/Fazan/wiki/Cel-mai-lung-lant-%5BFLEX%5D)
+- [x] The list of words that can be used for closures, sorted by prefix (duplicate words are not accepted) [BAZA](https://github.com/Andrei7506238/Fazan/wiki/Lista-de-cuvinte-care-poate-fi-folosita-pentru-blocare-%5BBAZA%5D) | [FLEX](https://github.com/Andrei7506238/Fazan/wiki/Lista-de-cuvinte-care-poate-fi-folosita-pentru-blocare-%5BFLEX%5D)
 
-## Demo:
+More about the extra features [here](https://github.com/Andrei7506238/Fazan/wiki/Extra-Features).
+
+## Short Demo:
 ![ezgif com-optimize](https://user-images.githubusercontent.com/115709086/219452636-b971f299-95b6-473c-8a3f-9ab39350ec72.gif)
 
 ## How to use:
@@ -34,7 +36,7 @@ The challenge of finding the longest non-repeating word chain is equivalent to t
 - The current lists are modified versions of the Official List of Words allowed in Scrabble (LOC) available on dexonline:
 - The Romanian diacritics from the inflectional list are replaced as follows: ("ă" - "~") ("î" - "^") ("â" - "#") ("ș" - ".") ("ț" - ",")
 - Any other diacritics from other languages must be replaced with the corresponding form from the English alphabet (words like Führer become Fuhrer)
-- To use a custom word list, create the custom.txt file in the directory with the executable file; One word per line; The rules regarding diacritics are the ones described above, available for the Romanian language.
+- To use a custom word list, override the `````` file in the directory with the executable file; One word per line; The rules regarding diacritics are the ones described above, available for the Romanian language.
 
 ## In the new release:
 - Implemented a sleek and user-friendly graphical user interface (GUI) using Qt framework.
@@ -42,3 +44,6 @@ The challenge of finding the longest non-repeating word chain is equivalent to t
 - Made significant improvements to the overall ease of use, making the application more accessible.
 - The website visuals have been updated to be more visually appealing and the information has been revised to reflect the new version.
 - The new regular expressions feature allows users to filter words and customize the cheat according to their specific rules and needs.
+
+## Warning:
+The Fazan Cheat is meant to be used solely for educational and research purposes. It seemed an interesenting project from the beggining and am interesting use case for graphs. It is important to play fair and respect the rules of the game, as cheating can ruin the experience for other players and take away from the spirit of competition. Use of the Fazan Cheat is entirely at your own risk, and the creators of the cheat assume no responsibility for any consequences that may arise from its use.
