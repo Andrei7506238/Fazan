@@ -61,7 +61,6 @@ private:
 
     QWidget containerBtn;
     QHBoxLayout layBtn;
-    QPushButton btnReload;
     QPushButton btnGenLockWord;
     QPushButton btnGenLongChain;
 

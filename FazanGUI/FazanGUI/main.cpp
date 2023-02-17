@@ -21,18 +21,18 @@ std::list<std::regex> loadIgnoreList()
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication application(argc, argv);
 
-    SplashScreen ss;
-    ss.show();
+    SplashScreen splashScreen;
+    splashScreen.show();
 
-    a.processEvents(QEventLoop::AllEvents);
+    application.processEvents(QEventLoop::AllEvents);
 
     FazanDataStructure* fazanDS;
     auto th = std::thread([&]() {
         auto minTimeExit = std::chrono::system_clock::now() + std::chrono::seconds(2);
 
-        std::ifstream fin("redus.txt");
+        std::ifstream fin("wordList.txt");
         fazanDS = new FazanDataStructure(fin, loadIgnoreList());
 
         std::this_thread::sleep_until(minTimeExit);
@@ -40,10 +40,10 @@ int main(int argc, char *argv[])
     );
 
     th.join();
-    ss.hide();
+    splashScreen.hide();
 
-    FazanGUI w;
-    w.show();
-    w.loadWords(fazanDS);
-    return a.exec();
+    FazanGUI fazanMainWindow;
+    fazanMainWindow.show();
+    fazanMainWindow.loadWords(fazanDS);
+    return application.exec();
 }
