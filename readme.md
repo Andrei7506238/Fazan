@@ -16,12 +16,15 @@ Imagine having a secret weapon at your disposal in the game of [FAZAN](https://r
 ## Demo:
 ![ezgif com-optimize](https://user-images.githubusercontent.com/115709086/219452636-b971f299-95b6-473c-8a3f-9ab39350ec72.gif)
 
-More about every option and how the cheat works can be found in the wiki.
-
+## How to use:
+Enter the word recived from the previous player in the input field. Press Enter and the word recommended will be written below.
+If in the current game there are no duplicated words allowed check the ``remove typed words`` and ``remove recommended words`` to delete them from the internal data structure. In the first round (when there aren't any closures alowed) we might want to only delete the recived word without using the cheat to recomend a new one. In this case we might want to toggle off the ``Recommend words`` options. This is also useful if we play with more oponents and we want to eliminate the words they said.
+We might chose to turn on/off ``check typed words`` to verify if the word said is valid.
+ 
 ## Technical info:
 This project's most remarkable aspect is its underlying data structure: a directed multigraph based on a generalized adjacency matrix. The multigraph's nodes are identified by all possible 2-letter combinations, while edges connect a prefix node with a suffix node via a word. This configuration facilitates the creation of a matrix where each row corresponds to a prefix node, each column represents a suffix node, and each cell contains a list of words linking the two nodes.
 
-To optimize performance, a secondary vector is utilized to track the outdegree of each node. This is a common operation and it can be computationally expensive.
+To optimize performance, a secondary vector is utilized to track the outdegree of each node. Finding the outdegree of a node is a common operation and it can be computationally expensive.
 
 The cheat mechanism operates by identifying the node Y with the smallest non-zero outdegree connected to the current user-entered word's suffix node X. Subsequently, the program returns one of the words found in the X→Y edge, utilizing a greedy and efficient approach. As it might not be as good as a minimax approach, more often than not the cheat instantly blocks the next opponent.
 
